@@ -1,0 +1,9 @@
+ru:
+  answer:
+    true_ans: 'Факт'
+    false_ans: 'Миф'
+    correct_true: 'Верно это - %{answer}'
+    correct_false: 'Не верно это - %{answer}'
+    next: 'Дальше'
+  game:
+    result_button: 'Показать результат'
