@@ -76,8 +76,11 @@ class MainResponseFormater
     }
   end
 
-  def quick_reply_template(buttons)
-    { quick_replies: buttons }
+  def text_with_quick_reply_template(text, buttons)
+    {
+        text: text,
+        quick_replies: buttons
+    }
   end
 
   def main_block_name_template(block_name, body)

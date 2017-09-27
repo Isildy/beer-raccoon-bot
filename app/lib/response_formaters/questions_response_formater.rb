@@ -9,13 +9,11 @@ class QuestionsResponseFormater < MainResponseFormater
   end
 
   def generate_question_template
-    template_body = [
-        image_template(img_url),
-        text: QESTIONS_NUMBERS_EMOJIES[q_id],
-        text: title,
-        quick_replies: answers_template
+    [
+      text_template(QESTIONS_NUMBERS_EMOJIES[q_id]),
+      image_template(img_url),
+      text_with_quick_reply_template(title, answers_template)
     ]
-    main_block_name_template('Question block', template_body)
   end
 
   def answers_template
@@ -28,17 +26,15 @@ class QuestionsResponseFormater < MainResponseFormater
 
   def generate_answer_template(last_question)
     [
-      text_template(answer),
-      text_template(answer_description),
-      quick_replies: [  define_next_button(last_question) ]
+     text_with_quick_reply_template(answer_description, define_next_button(last_question) )
     ]
   end
 
   private
 
   def define_next_button(last_q)
-    return button_template(generate_next_question_url,  I18n.t('answer.next')) unless last_q
-    button_template(generate_show_result_url,  I18n.t('game.result_button'))
+    return [button_template(generate_next_question_url,  I18n.t('answer.next'))] unless last_q
+    [button_template(generate_show_result_url,  I18n.t('game.result_button'))]
   end
 
   def generate_next_question_url

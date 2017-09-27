@@ -1,0 +1,11 @@
+/tmp
+.idea/
+ansible_amazon/
+.env
+log/
+google_api.json
+db/development.sqlite3
+db/test.sqlite3
+config/database.yml
+config/secrets.yml
+public/images/welcome/*.jpg
