@@ -23,7 +23,7 @@ get '/:locale/next_question' do
   json game.next_question
 end
 
-get '/end_game' do
+get '/:locale/end_game' do
   json @current_user.games.last.results if @current_user
 end
 

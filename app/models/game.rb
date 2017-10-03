@@ -28,10 +28,16 @@ class Game < ActiveRecord::Base
 
   def results
     define_game_locale
+    resp = GamesResponseFormater.new(
+        user_name: user.first_name,
+        answers_correct: answers_correct,
+        answers_passed_ids: answers_passed_ids,
+        subtitle: 'ну типа ты молодец а текстовку мы изменим'
+    )
     [
-      result_title_template,
-      result_gallery_template,
-      result_quick_reply_template
+      resp.result_title_template,
+      resp.result_gallery_template,
+      resp.result_quick_reply_template
     ]
   end
 

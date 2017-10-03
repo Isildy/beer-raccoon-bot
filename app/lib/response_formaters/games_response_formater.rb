@@ -1,7 +1,15 @@
 class GamesResponseFormater < MainResponseFormater
 
+  attr_accessor :user_name, :answers_correct, :answers_passed_ids, :subtitle
+
+  def initialize(params = {})
+    params.each do |name, value|
+      send("#{name}=", value)
+    end
+  end
+
   def result_title_template
-    { text: I18n.t('result.title') }
+    { text: I18n.t('game.result_title') }
   end
 
   def result_gallery_template
@@ -12,8 +20,8 @@ class GamesResponseFormater < MainResponseFormater
                 template_type: 'generic',
                 elements: [
                     {
-                        title: I18n.t('result.gallery_title', name: user.first_name, answers_correct: answers_correct, answers_passed: answers_passed_ids.size),
-                        subtitle: I18n.t('result.gallery_subtitle'),
+                        title: I18n.t('game.result_gallery_title', name: user_name, answers_correct: answers_correct, answers_passed: answers_passed_ids.size),
+                        subtitle: subtitle,
                         buttons: [
                             {
                                 type: 'element_share'
@@ -28,19 +36,19 @@ class GamesResponseFormater < MainResponseFormater
 
   def result_quick_reply_template
     {
-        text: I18n.t('result.quick_reply.title'),
+        text: 'текст перед кнопками',
         quick_replies: [
             {
-                title: I18n.t('result.quick_reply.play_button_title'),
-                block_names: [I18n.t('result.quick_reply.play_button_block')]
+                title: 'Some Button',
+                block_names: ['Start game']
             },
             {
-                title: I18n.t('result.quick_reply.event_button_title'),
-                block_names: [I18n.t('result.quick_reply.event_button_block')]
+                title: 'Some Button',
+                block_names: ['Start game']
             },
             {
-                title: I18n.t('result.quick_reply.menu_button_title'),
-                block_names: [I18n.t('result.quick_reply.menu_button_block')]
+                title: 'Some Button',
+                block_names: ['Start game']
             }
         ]
     }

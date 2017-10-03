@@ -7,3 +7,5 @@ ru:
     next: 'Дальше'
   game:
     result_button: 'Показать результат'
+    result_title: 'Поздравляем! Вы прошли тест. Взглянемже на результаты..'
+    result_gallery_title: 'И тааааак... %{name} Вы ответили правильно на %{answers_correct} из %{answers_passed} вопросов'
