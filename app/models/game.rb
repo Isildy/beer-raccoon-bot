@@ -16,8 +16,8 @@ class Game < ActiveRecord::Base
   end
 
   def put_answer(params)
-    last_question = true if answers_passed_ids.size == GAME_QUESTIONS_COUNT
-    answer_text = check_answer(params, last_question)
+    params['last_question'] = true if answers_passed_ids.size + 1 >= GAME_QUESTIONS_COUNT
+    answer_text = check_answer(params)
     answer_text
   end
 
@@ -47,18 +47,19 @@ class Game < ActiveRecord::Base
     answers_passed_ids.count + 1
   end
 
-  def check_answer(params, last_q=false)
+  def check_answer(params)
     question = questions.find_by(id: params['question_id'])
     return { error: 'question not found' } unless question
     correct = question.answer.to_s == params['answer']
     update_results(question.id, correct)
     params = {
         locale:  locale,
-        answer:generate_answer_text(correct,  question.answer.to_s),
+        answer: generate_answer_text(correct,  question.answer.to_s),
         answer_description: question.answer_description,
         game_id: id,
+        last_question: params['last_question']
     }
-    QuestionsResponseFormater.new(params).generate_answer_template(last_q)
+    QuestionsResponseFormater.new(params).generate_answer_template
   end
 
   def generate_questions_set

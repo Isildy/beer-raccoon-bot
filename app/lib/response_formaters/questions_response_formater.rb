@@ -1,6 +1,6 @@
 class QuestionsResponseFormater < MainResponseFormater
 
-  attr_accessor :title, :img_url, :q_id, :locale, :game_id, :answer, :answer_description, :locale
+  attr_accessor :title, :img_url, :q_id, :locale, :game_id, :answer, :answer_description, :locale, :last_question
 
   def initialize(params = {})
     params.each do |name, value|
@@ -24,16 +24,17 @@ class QuestionsResponseFormater < MainResponseFormater
   end
 
 
-  def generate_answer_template(last_question)
+  def generate_answer_template
     [
-     text_with_quick_reply_template(answer_description, define_next_button(last_question) )
+     text_template(answer),
+     text_with_quick_reply_template(answer_description, define_next_button )
     ]
   end
 
   private
 
-  def define_next_button(last_q)
-    return [button_template(generate_next_question_url,  I18n.t('answer.next'))] unless last_q
+  def define_next_button
+    return [button_template(generate_next_question_url,  I18n.t('answer.next'))] unless last_question
     [button_template(generate_show_result_url,  I18n.t('game.result_button'))]
   end
 
