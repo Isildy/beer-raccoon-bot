@@ -28,11 +28,12 @@ class Game < ActiveRecord::Base
 
   def results
     define_game_locale
+    define_result_title
     resp = GamesResponseFormater.new(
         user_name: user.first_name,
         answers_correct: answers_correct,
         answers_passed_ids: answers_passed_ids,
-        subtitle: 'ну типа ты молодец а текстовку мы изменим'
+        subtitle: define_result_subtitle
     )
     [
       resp.result_title_template,
@@ -42,6 +43,17 @@ class Game < ActiveRecord::Base
   end
 
   private
+
+  def define_result_subtitle
+    case answers_correct
+      when 0..5
+        I18n.t('game.result_subtitle.newbee')
+      when 6..10
+        I18n.t('game.result_subtitle.midle')
+      when 11..20
+        I18n.t('game.result_subtitle.geek')
+    end
+  end
 
   def question_num
     answers_passed_ids.count + 1

@@ -1,4 +1,4 @@
-GAME_QUESTIONS_COUNT = 5
+GAME_QUESTIONS_COUNT = 15
 QESTIONS_NUMBERS_EMOJIES = { 1 => '1⃣',
                              2 => '2⃣',
                              3 => '3⃣',
