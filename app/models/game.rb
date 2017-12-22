@@ -28,23 +28,21 @@ class Game < ActiveRecord::Base
 
   def results
     define_game_locale
-    define_result_title
     resp = GamesResponseFormater.new(
         user_name: user.first_name,
         answers_correct: answers_correct,
-        answers_passed_ids: answers_passed_ids,
-        subtitle: define_result_subtitle
+        answers_passed_ids: answers_passed_ids
     )
     [
       resp.result_title_template,
       resp.result_gallery_template,
-      resp.result_quick_reply_template
+      resp.result_quick_reply_template(define_result)
     ]
   end
 
   private
 
-  def define_result_subtitle
+  def define_result
     case answers_correct
       when 0..5
         I18n.t('game.result_subtitle.newbee')

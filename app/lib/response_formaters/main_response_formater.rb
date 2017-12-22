@@ -78,8 +78,8 @@ class MainResponseFormater
 
   def text_with_quick_reply_template(text, buttons)
     {
-        text: text,
-        quick_replies: buttons
+      text: text,
+      quick_replies: buttons
     }
   end
 
